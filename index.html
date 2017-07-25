@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项卡</title>
+    <style>
+        #div{
+            height: 500px;
+            width: 500px;
+            margin:0 auto;
+        }
+        input{
+            width: 50px;
+            height: 30px;
+        }
+		input.active{
+            border:1px solid #FF3300;
+        }
+        #div div{
+            width: 300px;
+            height:200px;
+            background: sandybrown;
+            position: absolute;
+            text-align: center;
+            line-height: 200px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .show{
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+<div id="div">
+    <input type="button" value="one"><input type="button" value="two"><input type="button" value="three">
+    <div class="show">one</div>
+    <div>two</div>
+    <div>three</div>
+</div>
+</body>
+<script>
+    window.onload= function () {
+      new show('div');
+    };
+    function show(id) {
+        var _this=this;
+        var oDiv = document.getElementById(id);
+        this.aBtn = document.getElementsByTagName('input');    
+        this.aDiv = oDiv.getElementsByTagName('div');
+        for (var i = 0; i < this.aBtn.length; i++) {
+            this.aBtn[i].index = i;
+            this.aBtn[i].onclick = function() {
+                _this.click(this); 
+            }
+        }
+    }
+   show.prototype.click= function(oBtn) {
+        for(var i=0;i<this.aBtn.length;i++){
+            this.aBtn[i].className='';
+            this.aDiv[i].style.zIndex=-1
+        }
+        this.className='active';
+        this.aDiv[oBtn.index].style.zIndex=1
+        this.aDiv[oBtn.index].className='show';
+   }
+</script>
+</html>
